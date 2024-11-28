@@ -63,47 +63,23 @@ ensure_package_installed() {
     fi
 }
 
-# Function to ensure a Docker image is available locally
-ensure_docker_image() {
-    local image=$1
-    echo -e "${yellowColor}🔍 Checking for Docker image $image...${endColor}"
-
-    if ! docker images -q "$image" &> /dev/null; then
-        echo -e "${redColor}❌ Docker image $image not found locally. Pulling...${endColor}"
-        docker pull "$image"
-        if [ $? -ne 0 ]; then
-            echo -e "${redColor}❌ Failed to pull Docker image $image. Exiting.${endColor}"
-            exit 1
-        fi
-        echo -e "${greenColor}✅ Docker image $image pulled successfully.${endColor}"
-    else
-        echo -e "${greenColor}✅ Docker image $image is already available locally.${endColor}"
-    fi
-}
-
-# Function to ensure tools and images are installed
+# Function to ensure tools are installed
 ensure_environment() {
-    echo -e "${yellowColor}🔧 Ensuring all required tools and Docker images are installed...${endColor}"
+    echo -e "${yellowColor}🔧 Ensuring all required tools are installed...${endColor}"
 
-    # Define tools and their associated Docker images
-    declare -A tools_and_images=(
-        ["docker"]="nginx:latest"
-        ["nmap"]=""
-        ["curl"]=""
-        ["wireshark"]=""
+    # Define tools to validate
+    declare -a tools=(
+        "nmap"
+        "curl"
+        "wireshark"
     )
 
     # Loop through tools and ensure they are installed
-    for tool in "${!tools_and_images[@]}"; do
+    for tool in "${tools[@]}"; do
         ensure_package_installed "$tool"
-
-        local image="${tools_and_images[$tool]}"
-        if [ -n "$image" ]; then
-            ensure_docker_image "$image"
-        fi
     done
 
-    echo -e "${greenColor}🎉 All tools and Docker images are installed and up to date!${endColor}"
+    echo -e "${greenColor}🎉 All tools are installed and up to date!${endColor}"
 }
 
 # Main function
@@ -116,3 +92,4 @@ main() {
 
 # Run the main function
 main
+
