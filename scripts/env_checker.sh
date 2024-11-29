@@ -6,6 +6,15 @@ redColor="\e[31m"
 greenColor="\e[32m"
 yellowColor="\e[33m"
 
+# List of ParrotSec mirrors
+MIRRORS=(
+    "https://deb.parrot.sh/parrot"
+    "https://mirror.0x.sg/parrot"
+    "https://mirror.yandex.ru/mirrors/parrot"
+    "https://parrot.mirror.garr.it/mirrors/parrot"
+    "https://ftp.nluug.nl/os/Linux/distr/parrot"
+)
+
 # Tools for each edition
 declare -a HOME_TOOLS=("curl" "wget")          # Tools for the Home Edition
 declare -a SECURITY_TOOLS=("nmap" "wireshark") # Tools for the Security Edition
@@ -50,6 +59,40 @@ validate_security_repo() {
     fi
 }
 
+# Function to configure the fastest mirror
+configure_best_mirror() {
+    echo -e "${yellowColor}🔄 Finding the fastest mirror for your location...${endColor}"
+    local best_mirror=""
+    local best_time=1000000  # Arbitrary high initial value for latency
+
+    for mirror in "${MIRRORS[@]}"; do
+        echo -e "Pinging $mirror..."
+        local start_time=$(date +%s%N)
+        curl -s --head --connect-timeout 5 "$mirror" > /dev/null
+        local end_time=$(date +%s%N)
+
+        # Calculate elapsed time in milliseconds
+        local elapsed=$(( (end_time - start_time) / 1000000 ))
+
+        if [ $? -eq 0 ] && [ $elapsed -lt $best_time ]; then
+            best_time=$elapsed
+            best_mirror=$mirror
+        fi
+        echo -e "Latency: ${elapsed}ms"
+    done
+
+    # If no mirror was reachable, use the default
+    if [ -z "$best_mirror" ]; then
+        echo -e "${redColor}❌ No mirrors were reachable. Using default repository.${endColor}"
+        best_mirror="https://deb.parrot.sh/parrot"
+    fi
+
+    echo -e "${greenColor}✅ Best mirror: $best_mirror${endColor}"
+
+    # Update sources.list to use the best mirror
+    sudo sed -i "s|https://deb.parrot.sh/parrot|$best_mirror|g" /etc/apt/sources.list
+}
+
 # Function to install tools based on edition
 install_tools() {
     local edition=$1
@@ -85,6 +128,7 @@ main() {
     # Validate environment
     validate_apt_sources
     validate_security_repo
+    configure_best_mirror
 
     # Install tools for the selected edition
     install_tools "$edition"
