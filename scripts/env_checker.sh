@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Color variables for better readability in output
+# Define colors for output
 endColor="\e[0m"
 redColor="\e[31m"
 greenColor="\e[32m"
@@ -15,25 +15,36 @@ MIRRORS=(
     "https://ftp.nluug.nl/os/Linux/distr/parrot"
 )
 
-# Tools for each edition
-declare -a HOME_TOOLS=("curl" "wget")          # Tools for the Home Edition
-declare -a SECURITY_TOOLS=("nmap" "wireshark") # Tools for the Security Edition
+# Define tools for each edition
+declare -a HOME_TOOLS=("vlc" "firefox" "libreoffice")          # Tools for the Home Edition
+declare -a SECURITY_TOOLS=("nmap" "wireshark")                 # Tools for the Security Edition
 
-# Function to ensure a package is installed
+# Function to check if a package is available in the repository
+is_package_available() {
+    local package=$1
+    apt-cache show "$package" > /dev/null 2>&1
+    return $?
+}
+
+# Function to ensure a package is installed, only if available
 ensure_package_installed() {
     local package=$1
     echo -e "${yellowColor}Checking if $package is installed...${endColor}"
+    if ! is_package_available "$package"; then
+        echo -e "${redColor}⚠️ $package is not available in the repositories. Skipping...${endColor}"
+        return
+    fi
+
     if ! dpkg -l | grep -q "^ii  $package "; then
-        echo -e "${redColor}$package is not installed. Installing...${endColor}"
+        echo -e "${yellowColor}Installing $package...${endColor}"
         apt-get install -y "$package"
         if [ $? -eq 0 ]; then
-            echo -e "${greenColor}$package installed successfully.${endColor}"
+            echo -e "${greenColor}✅ $package installed successfully.${endColor}"
         else
-            echo -e "${redColor}Failed to install $package. Exiting.${endColor}"
-            exit 1
+            echo -e "${redColor}❌ Failed to install $package.${endColor}"
         fi
     else
-        echo -e "${greenColor}$package is already installed.${endColor}"
+        echo -e "${greenColor}✅ $package is already installed.${endColor}"
     fi
 }
 
@@ -98,18 +109,19 @@ install_tools() {
     local edition=$1
     echo -e "${yellowColor}Installing tools for the $edition edition...${endColor}"
 
+    local tools
     if [ "$edition" == "home" ]; then
-        for tool in "${HOME_TOOLS[@]}"; do
-            ensure_package_installed "$tool"
-        done
+        tools=("${HOME_TOOLS[@]}")
     elif [ "$edition" == "security" ]; then
-        for tool in "${SECURITY_TOOLS[@]}"; do
-            ensure_package_installed "$tool"
-        done
+        tools=("${SECURITY_TOOLS[@]}")
     else
         echo -e "${redColor}Unknown edition: $edition. Valid options are 'home' or 'security'.${endColor}"
         exit 1
     fi
+
+    for tool in "${tools[@]}"; do
+        ensure_package_installed "$tool"
+    done
 
     echo -e "${greenColor}All tools for the $edition edition are installed.${endColor}"
 }
@@ -136,6 +148,7 @@ main() {
 
 # Run the main function
 main "$@"
+
 
 
 
