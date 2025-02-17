@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source scripts/handle_error.sh
+
 run() {
     echo "Executing: $2"
     eval "$1"
