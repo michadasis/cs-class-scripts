@@ -15,7 +15,7 @@ Using this script is quite simple. Follow the steps below:
    git clone https://gitlab.com/parrotsec/project/debian-conversion-script.git
    cd debian-conversion-script
    sudo chmod +x ./install.sh
-   ./install.sh
+   sudo ./install.sh
    ```
 
 ## Menu Options
