@@ -1,5 +1,18 @@
 # Debian Conversion Script
 
+## Table of Contents
+
+- [Overview](#overview)
+- [How to Use](#how-to-use)
+- [Menu Options](#menu-options)
+- [Available Editions](#available-editions)
+- [Compatibility](#compatibility)
+- [Contributions](#contributions)
+- [Post installation](#post-installation)
+  - [bashrc](#bashrc)
+  - [profile](#profile)
+  - [/etc/skel](#etc-skel)
+
 ## Overview
 
 **Debian Conversion Script** is an installer script for ParrotOS. This project stands as a replacement for the [alternate-install](https://github.com/ParrotSec/alternate-install) which is no longer maintained. It is updated to the latest Parrot release.
@@ -27,8 +40,7 @@ Upon running the script, a menu will appear:
     2) Install Home Edition
     3) Install Security Edition
     4) Install Hack The Box Edition
-    5) Install headless packages
-    6) Exit
+    5) Exit
     =================================================
 
 Choose the desired option by typing the corresponding number (e.g., type 1 to install the Core Edition packages).
@@ -42,8 +54,6 @@ Choose the desired option by typing the corresponding number (e.g., type 1 to in
 - **Security Edition**: Installs a comprehensive suite of security tools and utilities for penetration testing, forensics, and vulnerability assessment.
 
 - **Hack The Box Edition**: Installs tools and configurations optimized for use with Hack The Box, a popular online platform for practicing penetration testing and ethical hacking.
-
-- **Headless packages**: Installs necessary packages for running ParrotOS without a graphical interface. Suitable for servers and remote systems.
 
 ## Compatibility
 
