@@ -4,6 +4,7 @@ base-files
 anonsurf
 parrot-drivers
 parrot-menu
+# TODO: we should use parrot-desktop-kde and echo-themes
 parrot-desktop-mate
 parrot-wallpapers
 parrot-themes
