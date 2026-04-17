@@ -38,9 +38,9 @@ check_system() {
 display_menu() {
     clear
     echo "╔═════════════════════════════════════════════╗"
-    echo "║        UoWM Debian Conversion Script        ║"
+    echo "║        UoWM Debian Script                   ║"
     echo "╠═════════════════════════════════════════════╣"
-    echo "║ 1) core					║" 
+    echo "║ 1) Core					║" 
     echo "║    Install all of the department's programs ║"
     echo "║ 2) Exit                                     ║"
     echo "╚═════════════════════════════════════════════╝"

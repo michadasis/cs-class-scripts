@@ -5,7 +5,9 @@
 This project is a fork of [Debian Conversion Script](https://gitlab.com/parrotsec/project/debian-conversion-script).
 
 * **Original Creators:** [ParrotSec Team](https://www.parrotsec.org/)
-* **Maintained & Modified by:** [Apostolos Chalis achalis@csd.auth.gr cs05414@uowm.gr]
+> **Maintained & Modified by:**
+> - [Apostolos Chalis](mailto:achalis@csd.auth.gr) — cs05414@uowm.gr
+> - [Ioannis Michadasis](mailto:johnmichadasis@gmail.com) — cs05415@uowm.gr
 
 Licensed under the **GPL v3 License**. See the [LICENSE](LICENSE) file for more details.
 
@@ -15,7 +17,6 @@ Licensed under the **GPL v3 License**. See the [LICENSE](LICENSE) file for more 
 - [How to Use](#how-to-use)
 - [Menu Options](#menu-options)
 - [Available Editions](#available-editions)
-- [Compatibility](#compatibility)
 - [Contributions](#contributions)
 - [Post installation](#post-installation)
   - [bashrc](#bashrc)
@@ -24,7 +25,7 @@ Licensed under the **GPL v3 License**. See the [LICENSE](LICENSE) file for more 
 
 ## Overview
 
-**Debian Conversion Script** is an installer script for ParrotOS. This project stands as a replacement for the [alternate-install](https://github.com/ParrotSec/alternate-install) which is no longer maintained. It is updated to the latest Parrot release.
+**CS Class Scripts** is a tool to install all needed applications that the university's curriculum requires.
 
 ## How to Use
 
@@ -34,8 +35,8 @@ Using this script is quite simple. Follow the steps below:
 2. **Clone this repository**
 
    ```bash
-   git clone https://gitlab.com/parrotsec/project/debian-conversion-script.git
-   cd debian-conversion-script
+   git clone git@github.com:ieeesbkastoria/cs-class-scripts.git
+   cd cs-class-scripts
    sudo chmod +x ./install.sh
    sudo ./install.sh
    ```
@@ -44,29 +45,20 @@ Using this script is quite simple. Follow the steps below:
 
 Upon running the script, a menu will appear:
 
-    ========== ParrotOS Editions Installer ==========
-    1) Install Core Edition
-    2) Install Home Edition
-    3) Install Security Edition
-    4) Install Hack The Box Edition
-    5) Exit
-    =================================================
+╔═════════════════════════════════════════════╗
+║        UoWM Conversion Script               ║
+╠═════════════════════════════════════════════╣
+║ 1) Core					                            ║
+║    Install all of the department's programs ║
+║ 2) Exit                                     ║
+╚═════════════════════════════════════════════╝
+Enter the option number: 
 
 Choose the desired option by typing the corresponding number (e.g., type 1 to install the Core Edition packages).
 
 ## Available Editions
 
-- **Core Edition**: Installs the minimal base system without any graphical interface or additional tools. Ideal for advanced users who want to customize their installation.
-
-- **Home Edition**: Installs a user-friendly environment with a complete suite of daily use applications, including office software, multimedia tools, and general utilities.
-
-- **Security Edition**: Installs a comprehensive suite of security tools and utilities for penetration testing, forensics, and vulnerability assessment.
-
-- **Hack The Box Edition**: Installs tools and configurations optimized for use with Hack The Box, a popular online platform for practicing penetration testing and ethical hacking.
-
-## Compatibility
-
-This script has been tested on Debian 12, including virtual machines and Docker containers.
+- **Core**: Installs all of the department's programs
 
 ## Contributions
 
