@@ -2,6 +2,7 @@
 
 source scripts/run.sh
 source scripts/install_packages.sh
+source scripts/install_toulopoulos_stack.sh
 
 core() {
     local core_packages
@@ -13,6 +14,7 @@ core() {
     # direct download DBeaver DEB package because the repository is not reliable
     run "wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb -O /tmp/dbeaver-ce.deb" "Downloading DBeaver DEB package"
     run "apt install -y /tmp/dbeaver-ce.deb" "Installing DBeaver from DEB"
+    install_toulopoulos_stack "Installing Toulopoulos stack"
 
     run "apt update" "Updating package lists"
     install_packages "${core_packages[@]}"

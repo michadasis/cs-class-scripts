@@ -10,18 +10,15 @@ source scripts/check_sudo.sh
 check_sudo
 source scripts/run.sh
 source scripts/editions/core.sh
-source scripts/editions/home.sh
-source scripts/editions/security.sh
-source scripts/editions/htb.sh
 
 check_system() {
     log "Performing system checks..."
     
-    # Simple check if running Debian (Le'ts ignore for this project.)
-    #if ! grep -q "Debian" /etc/os-release; then
-    #    log "ERROR: This script requires Debian"
-    #    return 1
-    #fi
+    # Check if there's the apt package manager
+    if ! command -v apt &>/dev/null; then
+    log "ERROR: This script requires apt (Debian/Ubuntu based system)"
+    return 1
+    fi
     
     local required_space=15000 # 15GB in MB
     local available_space=$(df -m / | awk 'NR==2 {print $4}')
@@ -38,7 +35,7 @@ check_system() {
 display_menu() {
     clear
     echo "╔═════════════════════════════════════════════╗"
-    echo "║        UoWM Debian Script                   ║"
+    echo "║             UoWM Debian Script              ║"
     echo "╠═════════════════════════════════════════════╣"
     echo "║ 1) Core					                    ║" 
     echo "║    Install all of the department's programs ║"
