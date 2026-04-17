@@ -45,14 +45,16 @@ Using this script is quite simple. Follow the steps below:
 
 Upon running the script, a menu will appear:
 
+```
 ╔═════════════════════════════════════════════╗
-║        UoWM Conversion Script               ║
+║           UoWM Conversion Script            ║
 ╠═════════════════════════════════════════════╣
-║ 1) Core					                            ║
-║    Install all of the department's programs ║
-║ 2) Exit                                     ║
+║  1) Core                                    ║
+║     Install all department's programs       ║
+║  2) Exit                                    ║
 ╚═════════════════════════════════════════════╝
-Enter the option number: 
+Enter the option number:
+```
 
 Choose the desired option by typing the corresponding number (e.g., type 1 to install the Core Edition packages).
 
