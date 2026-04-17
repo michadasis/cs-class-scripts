@@ -5,7 +5,7 @@
 This project is a fork of [Debian Conversion Script](https://gitlab.com/parrotsec/project/debian-conversion-script).
 
 * **Original Creators:** [ParrotSec Team](https://www.parrotsec.org/)
-  **Maintained & Modified by:**
+*  **Maintained & Modified by:**
   - [Apostolos Chalis](mailto:achalis@csd.auth.gr) — cs05414@uowm.gr
   - [Ioannis Michadasis](mailto:johnmichadasis@gmail.com) — cs05415@uowm.gr
 
