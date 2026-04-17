@@ -17,11 +17,11 @@ source scripts/editions/htb.sh
 check_system() {
     log "Performing system checks..."
     
-    # Simple check if running Debian
-    if ! grep -q "Debian" /etc/os-release; then
-        log "ERROR: This script requires Debian"
-        return 1
-    fi
+    # Simple check if running Debian (Le'ts ignore for this project.)
+    #if ! grep -q "Debian" /etc/os-release; then
+    #    log "ERROR: This script requires Debian"
+    #    return 1
+    #fi
     
     local required_space=15000 # 15GB in MB
     local available_space=$(df -m / | awk 'NR==2 {print $4}')
