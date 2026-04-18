@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Έξοδος σε περίπτωση σφάλματος
 set -e
 
@@ -11,18 +10,20 @@ vscode_install_setup_fn(){
 
     # Μέθοδος 1: Microsoft APT repository
     echo "--- Προσπάθεια με Microsoft APT repository ---"
-    if sudo apt install -y apt-transport-https wget gpg; then
-        wget -qO- https://packages.microsoft.com/keys/microsoft.asc \
-            | gpg --dearmor \
-            | sudo install -D /dev/stdin /usr/share/keyrings/packages.microsoft.gpg
+    sudo apt install -y apt-transport-https wget gpg 2>/dev/null
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc \
+        | gpg --dearmor \
+        | sudo install -D /dev/stdin /usr/share/keyrings/packages.microsoft.gpg 2>/dev/null
 
-        sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/packages.microsoft.gpg] \
-            https://packages.microsoft.com/repos/code stable main" \
-            > /etc/apt/sources.list.d/vscode.list'
+    sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/packages.microsoft.gpg] \
+        https://packages.microsoft.com/repos/code stable main" \
+        > /etc/apt/sources.list.d/vscode.list' 2>/dev/null
 
-        sudo apt update && sudo apt install -y code && return
-        echo "--- APT method απέτυχε, δοκιμή με Flatpak ---"
+    if sudo apt update 2>/dev/null && sudo apt install -y code 2>/dev/null; then
+        echo "--- VS Code εγκαταστάθηκε μέσω APT ---"
+        return
     fi
+    echo "--- APT απέτυχε, δοκιμή με Flatpak ---"
 
     # Μέθοδος 2: Flatpak fallback
     if ! command -v flatpak &>/dev/null; then
@@ -33,8 +34,9 @@ vscode_install_setup_fn(){
 
     if command -v flatpak &>/dev/null; then
         echo "--- Χρήση Flatpak για VS Code ---"
-        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-        flatpak install -y flathub com.visualstudio.code && return
+        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo \
+        && flatpak install -y flathub com.visualstudio.code \
+        && return
         echo "--- Flatpak απέτυχε, δοκιμή με Snap ---"
     fi
 
