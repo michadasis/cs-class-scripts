@@ -47,7 +47,7 @@ vscode_install_setup_fn(){
     fi
 
     echo "ΣΦΑΛΜΑ: Αδυναμία εγκατάστασης VS Code (APT, Flatpak και Snap απέτυχαν)."
-    exit 1
+    return 0  # ωστε να συνεχιζει
 }
 
 # 2. Έλεγχος έκδοσης G++ και ορισμός πακέτων
