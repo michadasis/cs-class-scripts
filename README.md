@@ -47,10 +47,10 @@ Upon running the script, a menu will appear:
 
 ```
 ╔═════════════════════════════════════════════╗
-║           UoWM Conversion Script            ║
+║       UoWM CS Stack Installer Script        ║
 ╠═════════════════════════════════════════════╣
 ║  1) Core                                    ║
-║     Install all department's programs       ║
+║     Proceed with installation               ║
 ║  2) Exit                                    ║
 ╚═════════════════════════════════════════════╝
 Enter the option number:
